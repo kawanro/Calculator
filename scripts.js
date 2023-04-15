@@ -1,9 +1,7 @@
 let firstNumber = "";
 let operator = "";
-let operator2 ="";
 let secondNumber = "";
 let arr =[];
-let counter=0;
 const OPERATORS =["+", "-", "*", "/"];
 
 
