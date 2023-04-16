@@ -138,6 +138,17 @@ function addDecimal(){
         
 }
 
+function backspace(){
+    if(display.innerText == firstNumber){// check if current input is number one or two
+        firstNumber = firstNumber.slice(0,-1);
+        display.innerText = firstNumber;
+        }
+    else{
+        secondNumber = secondNumber.slice(0,-1);
+        display.innerText = secondNumber;
+        } 
+}
+
 function clear(){
     firstNumber = "";
     secondNumber = "";
@@ -152,6 +163,7 @@ const equalsButton = document.getElementById("equals");
 const clearButton = document.getElementById("clear");
 const plusMinusButton = document.getElementById("plusminus");
 const decimalButton = document.getElementById("decimal");
+const backspaceButton = document.getElementById("backspace");
 
 digits.forEach(digit => {
     digit.addEventListener("click", e => {
@@ -177,6 +189,10 @@ plusMinusButton.addEventListener("click", e => {
 
 decimalButton.addEventListener("click", e => {
     addDecimal();
+})
+
+backspaceButton.addEventListener("click", e => {
+    backspace();
 })
 
 clearButton.addEventListener("click",e => {

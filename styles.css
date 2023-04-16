@@ -2,7 +2,7 @@ body{
     display: flex;
     justify-content: center;
     align-content: center;
-    background-color: 
+    background-color: #b0ff95;
 }
 .container{
     display: flex;
@@ -38,13 +38,13 @@ button{
 }
 
 button.support{
-    background-color:crimson;
+    background-color: #ff681d;
 }
 
 button.digit, button.decimal{
-    background-color:forestgreen;
+    background-color:#431dff;
 }
 
 button.operator, button.equals{
-    background-color: darkblue;
+    background-color: #ff0400;
 }
