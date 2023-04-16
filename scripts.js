@@ -1,14 +1,14 @@
 let firstNumber = "";
 let operator = "";
 let secondNumber = "";
-let arr =[];
-const OPERATORS =["+", "-", "*", "/"];
+let display = document.getElementById("display");
+
 
 
 //define add function 
 function add(...args){ 
     return args.reduce((total, current) => {
-        return total=current+total;
+        return total=Number(current)+Number(total);
     })
 }
 
@@ -30,7 +30,7 @@ function multiply(...args){
 
 //define divide function 
 function divide(...args){
-    if(args.includes(0)){
+    if(args.includes("0")){
         return "Cant divide through 0"
     }
     return args.reduce((total, current) => {
@@ -54,22 +54,27 @@ function operate(num1, op, num2){
     }
 }
 
-//define functions when clicked on equals
+//define function when clicked on equals
 
-function equals(){
+function equals(str){
+    
     console.log(operate(firstNumber,operator,secondNumber));
+    firstNumber=operate(firstNumber,operator,secondNumber);
+    secondNumber="";
+    operator=str;
+    display.innerText = firstNumber;
 }
 
 //define display function to save current input
 
-function display(input){
+function writeDisplay(input){
     if(operator==""){
         firstNumber=firstNumber+input;
-        //console.log(firstNumber);
+        display.innerText = firstNumber;
     }
     else {
         secondNumber = secondNumber+input;
-        //console.log(secondNumber);
+        display.innerText = secondNumber;
     }
 }
 
@@ -85,20 +90,73 @@ function fillOperator(str){
         firstNumber=operate(firstNumber,operator,secondNumber);
         secondNumber="";
         operator=str;
+        display.innerText = firstNumber;
     }
 
     
 }
+//function to change 
 
-// add eventListener to every Digit and Operator
+function plusMinus(){
+    if(display.innerText.charAt(0)!= "-"){  //check if current input is positive or negative
+        if(display.innerText == firstNumber){// check if current input is number one or two
+            firstNumber = "-"+firstNumber;
+            display.innerText = firstNumber;
+            }
+        else{
+            secondNumber = "-"+secondNumber;
+            display.innerText = secondNumber;
+            }
+        }
+    else{
+        if(display.innerText == firstNumber){// check if current input is number one or two
+            firstNumber = firstNumber.substring(1);
+            display.innerText = firstNumber;
+            }
+        else{
+            secondNumber = secondNumber.substring(1);
+            display.innerText = secondNumber;
+            }
+        } 
+        
+}
+
+function addDecimal(){
+    if(display.innerText.includes(".")==true){
+        alert("You can only input one decimal point");
+        return
+    }
+    if(display.innerText == firstNumber){// check if current input is number one or two
+        firstNumber = firstNumber + ".";
+        display.innerText = firstNumber;
+        }
+    else{
+        secondNumber = secondNumber + ".";
+        display.innerText = secondNumber;
+        }
+    
+        
+}
+
+function clear(){
+    firstNumber = "";
+    secondNumber = "";
+    operator = "";
+    display.innerText = "";
+}
+
+// add eventListener to every Button
 const digits = document.querySelectorAll(".digit");
 const operatorButton = document.querySelectorAll(".operator");
 const equalsButton = document.getElementById("equals");
+const clearButton = document.getElementById("clear");
+const plusMinusButton = document.getElementById("plusminus");
+const decimalButton = document.getElementById("decimal");
 
 digits.forEach(digit => {
     digit.addEventListener("click", e => {
 
-            display(e.srcElement.innerText);
+        writeDisplay(e.srcElement.innerText);
     })
 });
 
@@ -113,4 +171,15 @@ equalsButton.addEventListener("click",e => {
     equals();
 })
 
-console.log(digits);
+plusMinusButton.addEventListener("click", e => {
+    plusMinus();
+})
+
+decimalButton.addEventListener("click", e => {
+    addDecimal();
+})
+
+clearButton.addEventListener("click",e => {
+    clear();
+})
+
